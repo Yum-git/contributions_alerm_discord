@@ -20,6 +20,9 @@ func main(){
 	DiscordURL := os.Getenv("DISCORD_URL")
 	UserName := os.Getenv("GITHUB_NAME")
 	FileName := os.Getenv("FILE_NAME")
+	if FileName == ""{
+		FileName = "contributions.csv"
+	}
 
 	// Contributionを取得してcsvに書き込む
 	// 将来的にはSQLとかに…（SQLiteがいいかな）
