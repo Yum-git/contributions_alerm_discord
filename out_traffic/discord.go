@@ -1,29 +1,25 @@
 package out_traffic
 
 import (
+	"bytes"
+	"contributions_alerm_discord/json_type"
 	"contributions_alerm_discord/response_base"
+	"encoding/json"
 	"net/http"
-	"os"
-	"strings"
 )
 
-func DiscordSend(UserName string, Content string) {
-	url := os.Getenv("DISCORD_URL")
-	method := "POST"
+func DiscordSend(UserName string, Content string, WebHookURL string) {
+	// 構造体を生成してその中に要素を保存する
+	payloadBase := new(json_type.DiscordJson)
+	payloadBase.UserName = UserName
+	payloadBase.Content = Content
 
-	payloadBase := `{`+""+`"username": "`+ UserName +`",`+""+`"content": "` + Content + `"`+""+`}`
-	payload := strings.NewReader(payloadBase)
-
-	// httpリクエスト用意
-	client := &http.Client {}
-	req, err := http.NewRequest(method, url, payload)
+	// json形式に変える
+	payload, err := json.Marshal(payloadBase)
 	response_base.ErrorHandler(err)
 
-	// headerに付与
-	req.Header.Add("Content-Type", "application/json")
-
-	// API通信
-	res, err := client.Do(req)
+	// jsonを添えてPostで送信する
+	res, err := http.Post(WebHookURL, "application/json", bytes.NewBuffer(payload))
 	response_base.ErrorHandler(err)
 	defer res.Body.Close()
 }

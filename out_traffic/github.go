@@ -14,12 +14,13 @@ import (
 	"time"
 )
 
-func ContributionGet(ApiKey string, UserName string)  {
+func ContributionGet(ApiKey string, UserName string, fileName string)  {
 	// urlとかmethodの形式書く
 	url := "https://api.github.com/graphql"
 	method := "POST"
 
 	// GraphQLの構文を無理やり書く
+	// 後日GraphQLのライブラリ使って何とかします
 	payloadBase := "{\"query\":\"query($userName:String!) {\\r\\n  user(login: $userName){\\r\\n    contributionsCollection {\\r\\n      contributionCalendar {\\r\\n        totalContributions\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n}\",\"variables\":{\"userName\":\"" + UserName + "\"}}"
 	payload := strings.NewReader(payloadBase)
 
@@ -57,7 +58,7 @@ func ContributionGet(ApiKey string, UserName string)  {
 	fmt.Println(strToday, contributionsStr)
 
 	// csvにて保存
-	file, err := os.OpenFile("contributions.csv", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0664)
+	file, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0664)
 	response_base.ErrorHandler(err)
 	defer file.Close()
 	writer := csv.NewWriter(file)
