@@ -8,10 +8,11 @@ import (
 	"net/http"
 )
 
-func DiscordSend(UserName string, Content string, WebHookURL string) {
+func DiscordSend(UserName string, Content string, AvatarUrl string, WebHookURL string) {
 	// 構造体を生成してその中に要素を保存する
 	payloadBase := new(json_type.DiscordJson)
 	payloadBase.UserName = UserName
+	payloadBase.AvatarUrl = AvatarUrl
 	payloadBase.Content = Content
 
 	// json形式に変える

@@ -4,7 +4,8 @@
 GITHUB_KEY -> GitHubのAccessTokensを入れる  
 GITHUB_NAME -> GitHubのUserNameを入れる  
 DISCORD_URL -> DiscordのWebHookURLを入れる  
-FILE_NAME -> contributionを保存するcsv名を入れる（任意）
+FILE_NAME -> contributionを保存するcsv名を入れる（任意）  
+AVATAR_URL -> Discordのアバター画像のURLを入れる（任意）
 
 ### 利用技術
 *Go 1.14*   

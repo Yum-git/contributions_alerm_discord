@@ -17,9 +17,10 @@ func main(){
 
 	// 環境変数からkey取り出す
 	ApiKey := "Bearer " + os.Getenv("GITHUB_KEY")
-	DiscordURL := os.Getenv("DISCORD_URL")
+	DiscordUrl := os.Getenv("DISCORD_URL")
 	UserName := os.Getenv("GITHUB_NAME")
 	FileName := os.Getenv("FILE_NAME")
+	AvatarUrl := os.Getenv("AVATAR_URL")
 	if FileName == ""{
 		FileName = "contributions.csv"
 	}
@@ -35,6 +36,6 @@ func main(){
 	if diff > 0{
 		message := strconv.Itoa(diff) + "回草を生やしました\n" + "GitHubURL:https://github.com/" + UserName
 		fmt.Println(message)
-		out_traffic.DiscordSend(UserName, message, DiscordURL)
+		out_traffic.DiscordSend(UserName, message, AvatarUrl, DiscordUrl)
 	}
 }
